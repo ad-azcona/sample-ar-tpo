@@ -5,7 +5,7 @@ window.addEventListener("scroll", function () {
 });
 
 // Validación del formulario
-function enviaFormulario() {
+function enviaFormulario(e) {
     const formContacto = document.getElementById('formContacto');
     // nombre = document.getElementById('nombre').value,
     // correo = document.getElementById('correo').value,
@@ -15,11 +15,14 @@ function enviaFormulario() {
     let validarNombre = function (e) {
         if (formContacto.nombre.value == 0) {
             alert("Ingrese un nombre.");
-            e.preventDefault();
-        } else if (!formatoNombre(formContacto.nombre.value)) {
+            return false;
+        } 
+        
+        if (!formatoNombre(formContacto.nombre.value)) {
             alert("Ingrese un nombre válido.")
-            e.preventDefault();
+            return false;
         }
+        return true;
     };
 
     const formatoNombre = (nombre) => {
@@ -29,11 +32,14 @@ function enviaFormulario() {
     let validarCorreo = function (e) {
         if (formContacto.correo.value == 0) {
             alert("Ingrese un correo electrónico.")
-            e.preventDefault();
-        } else if (!formatoCorreo(formContacto.correo.value)) {
+            return false;
+        } 
+        
+        if (!formatoCorreo(formContacto.correo.value)) {
             alert("Ingrese un correo electrónico válido.")
-            e.preventDefault();
+            return false;
         }
+        return true;
     };
 
     const formatoCorreo = (correo) => {
@@ -41,35 +47,48 @@ function enviaFormulario() {
     }
 
     let validarAsunto = function (e) {
-        if (formContacto.asunto[0].checked == true || formContacto.asunto[1].checked == true || formContacto.asunto[2].checked == true) {
-
-        } else {
+        if (!formContacto.asunto[0].checked && !formContacto.asunto[1].checked && !formContacto.asunto[2].checked) {
             alert("Elija un asunto.");
-            e.preventDefault();
+            return false;
         }
+        return true;
     }
 
-
-    function validarForm(e){
-        validarNombre(e);
-        validarCorreo(e);
-        validarAsunto(e);
-        // Código para evitar el cuadro (action) de formspree en pantalla. Se omite porque nos ignora las validaciones de JS.
-        // const data = new FormData(this);
-        // const response = await fetch(this.action, {
-        //     method: this.method,
-        //     body: data,
-        //     headers: {
-        //         'Accept': 'application/json'
-        //     }
-        // })
-        // if (response.ok){
-        //     this.reset()
-        //     alert("¡Gracias por contactarte!");  
-        // }
+    if (!validarNombre(e)) {
+        return false;
     }
+
+    if (!validarCorreo(e)) {
+        return false;
+    }
+
+    if (!validarAsunto(e)) {
+        return false;
+    }
+
     
+        // Código para evitar el cuadro (action) de formspree en pantalla. Se omite porque nos ignora las validaciones de JS.
+    const data = new FormData(formContacto);
+    const response = fetch("https://formspree.io/f/mjvzagye", {
+        method: formContacto.method,
+        body: data,
+        headers: {
+                'Accept': 'application/json'
+            }
+    })
+    .then((response) => {
 
-    formContacto.addEventListener("submit", validarForm);
-    // No encuentro manera de resetear el formulario de forma correcta.
+        if(response.ok){
+            console.log("Form enviado");
+            formContacto.reset()
+            alert("¡Gracias por contactarte!");  
+        }
+  
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+
+    return true;
 }

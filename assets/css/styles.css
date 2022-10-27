@@ -8,9 +8,9 @@
 body {
     font-family: 'League Spartan', sans-serif;
     color: rgba(255, 255, 255, 1);
-    background-image: url('../images/consola-1300px-edit.jpg');
+    background-image: url('/assets/images/consola-edit.jpg');
     background-color: black;
-    background-size:cover;
+    background-size: cover;
     background-repeat: no-repeat;
     text-align: center;
 }
@@ -25,7 +25,7 @@ header {
     justify-content: space-between;
     align-items: center;
     transition: 0.9s;
-    min-height: 101px;
+    height: 100px;
     padding: 40px 40px;
 }
 
@@ -33,7 +33,7 @@ header {
 .header-logo {
     position: relative;
     float: left;
-    width: 6em;
+    width: 4.5em;
     margin: 0.5rem;
     text-decoration: none;
 }
@@ -66,7 +66,6 @@ header {
     color: rgba(255, 255, 255, 1);
 }
 
-
 .header-nav a:hover {
     cursor: pointer;
     color: #654f76;
@@ -74,18 +73,149 @@ header {
     transition: 0.4s;
 }
 
-
 .header-nav li a {
     font-size: 2.2rem;
     background: transparent;
 }
+    /*breakpoints del header*/
+    @media only screen and (max-width:600px) {  
+        .header-nav li a {
+            font-size: 1.6rem;
+            background: transparent;
+            }
+
+        .header-logo {
+            position: relative;
+            float: left;
+            width: 10em;
+            /*margin: 0.5rem;*/
+            text-decoration: none;
+        }
+        }
+
+    @media only screen and (max-width:800px) {  
+        .header-nav li a {
+            font-size: 1.6rem;
+            background: transparent;
+        }
+        .header-logo {
+            position: relative;
+            float: left;
+            width: 100px;
+            margin: 0.5rem;
+            text-decoration: none;
+        }
+        }
+
+
+
 
 header.sticky {
     padding: 5px 100px;
     background: #141414;
+    z-index: 999;
+    
     /* Alternativa con gradiente */
     /* background: rgb(101,79,118);
     background: linear-gradient(90deg, rgba(101,79,118,0.9251050762101716) 0%, rgba(20,20,20,0.8214636196275386) 50%); */
+}
+
+/***************************/
+
+/* Menú hamburguesa */
+/* header .header-container{
+    place-content: flex-start;
+} */
+
+/* nav{
+    width: 70%;
+    display: block;
+    place-content: space-between;
+} */
+
+#menu-bar, #menu{
+    display: none;
+}
+
+@media only screen and (max-width: 600px){
+    header.header-container, header.header-container ul, header.header-container ul li{
+        display: inline;
+    }
+
+    header .header-container nav{
+        width: 100%;
+        display: inline;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    header.logo{
+        margin:0;
+        padding:0;
+        width: 150px;
+    }
+
+    header.header-container{
+        /* display: flex; */
+        place-content: space-between;
+    }
+
+    #menu-bar:not(:checked) ~ nav{
+        display: none;
+    }
+
+    #menu-bar:checked ~ nav{
+        display: block;
+    }
+
+    #menu{
+        display: block;
+        color: rgba(255, 255, 255, 1);
+        /* background-color: rgba(101, 79, 118,0.5); */
+        font-size: 2em;
+        font-weight: bold;
+        /* border: 3px solid rgba(101, 79, 118,0.5); */
+        border-radius: 0.3em;
+        position: absolute;
+        right: 0.7em;
+        top: 0.7em;
+        z-index: 10000000;
+    }
+
+    #menu:hover{
+        transition: 0.5s;
+        color: rgba(101, 79, 118,1);
+    }
+
+    #menu-close{
+        display: none;
+    }
+
+    #menu-bar:checked ~ label #menu-open{
+        display: none;
+    }
+
+    #menu-bar:checked ~ label #menu-close{
+        display: block;
+    }
+
+    header.header-container nav{
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        background-color: rgb(20, 20, 20, 0.60);
+        padding-top: 0.5em;
+        padding-right: 1.5em;
+        color: rgba(255, 255, 255, 1);
+    } 
+
+    /* Se supone que esto encoluma los elementos y los alínea hacia la derecha, pero no hubo forma. Me estoy comiendo un detalle que no logro visualizar. (Hasta puse ese background para divisar mejor lo que estoy tocando, quemado lvl1000)*/
+    /* header.header-container nav.header-nav ul li a{
+        background-color: greenyellow;
+        display: block;
+        text-align: right;
+    } */
 }
 
 /* CSS del Article del Main */
@@ -103,10 +233,10 @@ main>article {
 }
 
 .hero {
-    padding-top: 7.5em;
-    padding-bottom: 10em;
+    padding-top: 5.5em;
+    padding-bottom: 5em;
     flex-direction: row;
-    font-size: 3.5em;
+    font-size: 3em;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -138,6 +268,30 @@ main>article {
     transition: 0.5s;
 }
 
+@media only screen and (max-width: 600px) {
+    #card-container { 
+            flex-direction: column;
+            flex-wrap: wrap; 
+            align-self: center;
+            }
+        }
+
+    @media only screen and (min-width: 600px) {
+    #card-container { 
+            flex-direction: column;
+            flex-wrap: wrap; 
+            align-self: center;
+            }
+        }
+    
+    @media only screen and (min-width: 1024px) {
+    #card-container { 
+            flex-direction: row;
+            flex-wrap: wrap; 
+            align-self: center;
+            }
+        }
+
 
 /*  CSS del Aside  */
 main>aside {
@@ -167,8 +321,8 @@ iframe {
 /* Formulario de contacto */
 
 .contacto-titulo {
-    padding-top: 6.5em;
-    padding-bottom: 20px;
+    padding-top: 5em;
+    padding-bottom: 2em;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -199,15 +353,15 @@ fieldset {
 .item {
     justify-content: center;
     text-align: center;
-    font-size: 24px;
-    margin-top: 25px;
+    font-size: 25px;
+    margin-top: 10px;
 }
 
 input,
 textarea {
     opacity: 0.75;
     font-family: 'League Spartan', Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 25px;
     margin-left: 10px;
     margin-right: 7px;
@@ -221,14 +375,14 @@ textarea {
 
 /* CSS del Footer */
 footer {
-    padding-top: 20px;
-    bottom: 0;
+    padding-top: 25px;
     font-size: 25px;
+    text-align: center;
 }
 
 footer a i {
     padding-top: 5px;
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
     color: white;
     text-decoration: none;
     margin: 10px;
